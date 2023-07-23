@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/lteLayout.html}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <form th:action="@{/board/modify/{bno}(bno=${bno})}" method="post">
+            <div class="col-md-6">
+
+                <!-- Form Element sizes -->
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">Modify Page</h3>
+                    </div>
+                    <div class="card-body">
+                        <label>NO</label>
+                        <div class="form-control form-control-lg" readonly>[[${board.bno}]]</div>
+                        <label>writer</label>
+                        <div class="form-control form-control-lg" readonly>[[${board.writer}]]</div>
+                        <label>title</label>
+                        <div class="form-control form-control-lg">
+                            <input type="text" name="title" th:value="${board.title}">
+                        </div>
+
+                        <label>content</label>
+                        <div class="form-control form-control-lg">
+                            <input type="text" name="content" th:value="${board.content}">
+                        </div>
+                        <label>dueDate</label>
+                        <div class="form-control form-control-lg">[[${board.dueDate}]]</div>
+                        <br>
+
+                        <input type="submit" value="수정">
+                    </div>
+
+        </form>
+        
+        <form th:action="@{/board/delete/{bno}(bno=${bno})}" method="post">
+            <input type="hidden" name="bno" th:value="${board.bno}" readonly>
+            <button>삭제하기</button>
+        </form>
+
+    </div>
+    </div>
+
+    </div>
+</body>
+
+</html>

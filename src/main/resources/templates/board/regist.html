@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/lteLayout.html}">
+
+<head>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div layout:fragment="content">
+
+        <form action="/board/regist" method="post">
+
+            <div class="col-md-6">
+                <!-- Form Element sizes -->
+                <div class="card card-success">
+                    <div class="card-header">Register Page</div>
+                </div>
+
+                <div class="card-body">
+
+                    <label>title</label>
+                    <div class="form-control form-control-lg">
+                        <input type="text" name="title"></input>
+                    </div>
+
+                    <label>writer</label>
+                    <div class="form-control form-control-lg">
+                        <input type="text" name="writer"></input>
+                    </div>
+
+                    <label>content</label>
+                    <div class="form-control form-control-lg">
+                        <input type="textarea" name="content"></input>
+                    </div>
+
+                    <br>
+
+                    <div class="col-4" style=" margin-bottom: 10px;">
+                        <button type="submit" class="btn btn-primary btn-block" style="width: auto; ">Regist
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</body>
+
+</html>

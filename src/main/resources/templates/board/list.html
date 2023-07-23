@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/lteLayout.html}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    th,
+    td {
+        width: 130px;
+        height: 20px;
+        border: 1px solid black;
+        text-align: center;
+        padding: 10px;
+
+    }
+</style>
+
+<body>
+    <div layout:fragment="content">
+        <div class="card">
+
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <table class="table table-bordered ">
+
+                    <thead>
+                        <tr>
+                            <th style="width: 10px">No</th>
+                            <th>제목</th>
+                            <th style="width: 100px">작성자</th>
+                            <th style="width: 100px">날짜</th>
+                        </tr>
+                    </thead>
+
+                    <div class="col-4" style=" margin-bottom: 10px;">
+                        <button onclick="location.href='/board/regist'" type="submit" class="btn btn-primary btn-block"
+                            style="width: auto; ">Regist
+                        </button>
+
+                    </div>
+
+                    <br>
+
+                    <tbody class="boardTable">
+
+                        <tr th:each="board :${pageResponseDTO.list}">
+                            <td class="todoTD">[[${board.bno}]]</td>
+                            <td style="cursor: pointer;" th:data-bno="${board.bno}">[[${board.title}]]</td>
+                            <td>[[${board.writer}]]</td>
+                            <td>[[${board.dueDate}]]</td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+
+        <!-- 페이징처리 -->
+        <div class="card-footer clearfix">
+            <ul class="pagination pagination-sm m-0 float-right boardUL">
+                <li class="page-item"><a class="page-link" href="10">&laquo;</a></li>
+                <li class="page-item"><a class="page-link" href="11">11</a></li>
+                <li class="page-item"><a class="page-link" href="12">12</a></li>
+                <li class="page-item"><a class="page-link" href="13">13</a></li>
+                <li class="page-item"><a class="page-link" href="21">&raquo;</a></li>
+            </ul>
+        </div>
+
+
+        <form class="actionForm" action="/board/list" method="get">
+            <input type="hidden" name="page" value="3">
+            <input type="hidden" name="size" th:value="10">
+        </form>
+
+        <script src="/js/pageUtil.js"></script>
+
+    </div>
+
+    <script layout:fragment="script" th:inline="javascript">
+
+
+        const actionForm = document.querySelector(".actionForm")
+        const boardTable = document.querySelector(".boardTable")
+        const pageObj = actionForm.querySelector("input[name='page']")
+        const boardUL = document.querySelector(".boardUL")
+
+
+        boardUL.addEventListener("click", (e) => {
+            e.preventDefault()  
+            e.stopPropagation() 
+
+            const target = e.target
+            const pageNum = target.getAttribute("href")
+
+            pageObj.value = pageNum
+            actionForm.setAttribute("action", `/board/list`)
+            actionForm.submit()
+
+        }, false)
+
+
+        const { page, size } = [[${ pageRequestDTO }]]
+
+        console.log(page, size)
+
+        const { total } = [[${ pageResponseDTO }]]
+
+        console.log("total:" + total)
+
+
+        const pageLIStr = makePages(page, size, total)
+        boardUL.innerHTML = pageLIStr
+
+
+        boardTable.addEventListener("click", (e) => {
+
+            const target = e.target
+            
+            if (!target.getAttribute("data-bno")) {
+                return
+            }
+
+            const bno = target.getAttribute("data-bno")
+
+            console.log(bno)
+
+            const url = `/board/read/${bno}`
+
+            actionForm.setAttribute("action", url)
+            actionForm.submit();
+
+
+        }, false)
+
+
+    </script>
+
+
+</body>
+
+</html>

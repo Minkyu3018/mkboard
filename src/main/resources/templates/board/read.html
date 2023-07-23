@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/lteLayout.html}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    th,
+    td {
+        width: 130px;
+        height: 20px;
+        border: 1px solid black;
+        text-align: center;
+        padding: 10px;
+
+    }
+</style>
+
+<body>
+    
+    <div layout:fragment="content">
+        <form method="post">
+            <div class="col-md-6">
+                
+                <!-- Form Element sizes -->
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">Read Page</h3>
+                    </div>
+                    <div class="card-body">
+                        <label>NO</label>
+                            <div class="form-control form-control-lg">[[${board.bno}]]</div>
+                        <label>title</label>
+                            <div class="form-control form-control-lg">[[${board.title}]]</div>
+                        <label>writer</label>
+                            <div class="form-control form-control-lg">[[${board.writer}]]</div>
+                        <label>content</label>
+                            <div class="form-control form-control-lg">[[${board.content}]]</div>
+                        <label>dueDate</label>
+                            <div class="form-control form-control-lg">[[${board.dueDate}]]</div>
+
+
+                    </div>
+
+                    
+                    <a th:href="@{/board/modify/{bno}(bno=${board.bno})}"> 수정하기</a>
+
+                    <br>
+                    <a th:href="@{/board/list}"> 리스트</a>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</body>
+
+</html>
